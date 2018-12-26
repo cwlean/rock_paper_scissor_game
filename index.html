@@ -1,0 +1,82 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Rock Paper Scissor Game</title>
+  </head>
+  <body>
+    <script>
+      function computerPlay() {
+        let choices = ["rock", "paper", "scissor"];
+        return choices[Math.floor(Math.random() * 3)];
+      }
+
+      function playerPlay() {
+        return prompt("Input your selection: rock, paper, or scissor");
+      }
+
+      function playRound(computerSelection, playerSelection) {
+        let playerSelectionValue = playerSelection.toLowerCase();
+        switch (playerSelectionValue) {
+          case "rock":
+            if (computerSelection == "paper") {
+              return "You Lose! Paper beats Rock.";
+            } else if (computerSelection == "scissor") {
+              return "You Win! Rock beats Scissor.";
+            } else {
+              return "Draw. Both played Rock.";
+            }
+          case "paper":
+            if (computerSelection == "rock") {
+              return "You Win! Paper beats Rock.";
+            } else if (computerSelection == "scissor") {
+              return "You Lose! Scissor beats Paper.";
+            } else {
+              return "Draw. Both played Paper.";
+            }
+          case "scissor":
+            if (computerSelection == "rock") {
+              return "You Lose! Rock beats Scissor.";
+            } else if (computerSelection == "paper") {
+              return "You Win! Scissor beats Paper.";
+            } else {
+              return "Draw. Both played Scissor.";
+            }
+          default:
+            return "Error. Not a valid player selection. Count as a lost round.";
+        }
+      }
+
+      function game() {
+        let points = 0;
+        // Rules for points: win + 1, lose -1, draw do nothing.
+        for (let i = 0; i < 5; ++i) {
+          let computerSelection = computerPlay();
+          let playerSelection = playerPlay();
+          let roundResult = playRound(computerSelection, playerSelection);
+        
+          if(roundResult.includes("Win")) {
+            points += 1;
+          } else if (roundResult.includes("Draw")) {
+            points += 0;
+          } else {
+            points -= 1;
+          }
+
+          console.log(roundResult);
+        }
+        
+        if (points > 0) {
+          console.log("You won the game!");
+        } else if (points == 0) {
+          console.log("You draw the game.");
+        } else {
+          console.log("You lose.");
+        }
+      }
+
+      game();
+
+    </script>
+  </body>
+</html>
